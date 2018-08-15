@@ -1,0 +1,28 @@
+version : '2'
+
+services:
+
+  result:
+    build: .
+    ports:
+      - "8181:3000"
+    depends_on:
+      - redis
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /tmp:/app/test
+
+  redis:
+    image: redis:alpine
+    ports: ["6379"]
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
